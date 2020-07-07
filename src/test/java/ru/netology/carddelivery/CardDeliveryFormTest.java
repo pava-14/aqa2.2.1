@@ -25,18 +25,19 @@ public class CardDeliveryFormTest {
 
         open("http://localhost:9999");
 
+        String dateOrder = GetOrderDate(daysDiff);
         SelenideElement element = $("form");
         element.$("[data-test-id=city] input").setValue("Новосибирск");
         element.$("[data-test-id=date] input").doubleClick();
         element.$("[data-test-id=date] input").sendKeys(Keys.BACK_SPACE);
-        element.$("[data-test-id=date] input").setValue(GetOrderDate(daysDiff));
+        element.$("[data-test-id=date] input").setValue(dateOrder);
         element.$("[data-test-id=name] input").setValue("Иванов Петр Петрович");
         element.$("[data-test-id=phone] input").setValue("+79099099090");
         element.$("[data-test-id=agreement]").click();
         element.$$("button").find(exactText("Забронировать")).click();
 
         $(withText("Успешно!")).waitUntil(visible, 15000);
-        $(byText("Встреча успешно забронирована на")).waitUntil(visible, 5000);
-        $(byText(GetOrderDate(daysDiff))).waitUntil(visible, 5000);
+        $(byText("Встреча успешно забронирована на")).shouldBe(visible);
+        $(byText(dateOrder)).shouldBe(visible);
     }
 }
