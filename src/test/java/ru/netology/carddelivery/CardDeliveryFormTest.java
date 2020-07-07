@@ -36,7 +36,7 @@ public class CardDeliveryFormTest {
         element.$$("button").find(exactText("Забронировать")).click();
 
         $(withText("Успешно!")).waitUntil(visible, 15000);
-        $(byText("Встреча успешно забронирована на")).waitUntil(visible, 15000);
+        $(byText("Встреча успешно забронирована на ")).waitUntil(visible, 15000);
         $(byText(GetOrderDate(daysDiff))).waitUntil(visible, 15000);
     }
 }
